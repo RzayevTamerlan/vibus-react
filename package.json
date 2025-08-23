@@ -1,0 +1,55 @@
+{
+  "name": "vibus-react",
+  "version": "1.0.0",
+  "description": "Vibus React wrapper",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RzayevTamerlan/vibus-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RzayevTamerlan/vibus-react/issues"
+  },
+  "scripts": {
+    "build:types": "tsc -p tsconfig.types.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build": "npm run build:types && npm run build:cjs && npm run build:esm",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "event",
+    "event-bus",
+    "react",
+    "context",
+    "component",
+    "hook",
+    "vibus"
+  ],
+  "author": "Tamerlan Rzayev",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^19.1.10",
+    "react": "^19.1.1",
+    "vibus-core": "^1.0.0",
+    "typescript": "^5.9.2"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "vibus-core": ">=1.0.0"
+  }
+}
