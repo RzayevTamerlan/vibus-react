@@ -3,19 +3,15 @@ import { EventBus, EventKey, EventHandler, createEventBus, EventBusConfig } from
 import { EventBusHookOptions } from '../types';
 import { useEventBusContext } from '../context';
 
-// Вспомогательная функция для получения event bus
 const useEventBusInstance = (options?: EventBusHookOptions): EventBus => {
   try {
-    // Пытаемся использовать контекст
     const context = useEventBusContext();
     return options?.eventBus || context.eventBus;
   } catch {
-    // Если контекста нет, используем переданный или создаем новый
     return options?.eventBus || createEventBus();
   }
 };
 
-// Хук для подписки на события
 export const useEvent = <T = any>(
   event: EventKey,
   handler: EventHandler<T>,
@@ -37,7 +33,6 @@ export const useEvent = <T = any>(
   }, [event, eventBus]);
 };
 
-// Хук для однократной подписки
 export const useEventOnce = <T = any>(
   event: EventKey,
   handler: EventHandler<T>,
@@ -51,7 +46,6 @@ export const useEventOnce = <T = any>(
   }, [event, handler, eventBus]);
 };
 
-// Хук для отправки событий
 export const useEmit = (options?: EventBusHookOptions) => {
   const eventBus = useEventBusInstance(options);
   
@@ -60,7 +54,6 @@ export const useEmit = (options?: EventBusHookOptions) => {
   }, [eventBus]);
 };
 
-// Хук для подписки на все события
 export const useEventAll = (
   handler: (event: EventKey, payload?: any) => void,
   options?: EventBusHookOptions
@@ -73,12 +66,10 @@ export const useEventAll = (
   }, [handler, eventBus]);
 };
 
-// Хук для создания изолированного event bus
 export const useEventBus = (config?: EventBusConfig) => {
   return useMemo(() => createEventBus(config), [config]);
 };
 
-// Хук для доступа к текущему event bus
 export const useCurrentEventBus = () => {
   return useEventBusContext().eventBus;
 };

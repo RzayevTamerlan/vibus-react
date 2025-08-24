@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, ReactNode } from 'react';
+import { createContext, useContext, useMemo, ReactNode, memo } from 'react';
 import { EventBus, EventBusConfig, createEventBus, eventBus as globalEventBus } from 'vibus-core';
 import { EventBusContextType } from '../types';
 
@@ -10,7 +10,7 @@ interface EventBusProviderProps {
   config?: EventBusConfig;
 }
 
-export const EventBusProvider: React.FC<EventBusProviderProps> = ({ 
+const EventBusProvider: React.FC<EventBusProviderProps> = ({ 
   children, 
   eventBus: externalEventBus,
   config 
@@ -28,7 +28,9 @@ export const EventBusProvider: React.FC<EventBusProviderProps> = ({
   );
 };
 
-export const useEventBusContext = () => {
+const MemoizedEventBusProvider = memo(EventBusProvider);
+
+const useEventBusContext = () => {
   const context = useContext(EventBusContext);
   
   if (!context) {
@@ -37,3 +39,8 @@ export const useEventBusContext = () => {
   
   return context;
 };
+
+export {
+  MemoizedEventBusProvider as EventBusProvider,
+  useEventBusContext
+}
